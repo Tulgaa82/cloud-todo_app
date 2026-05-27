@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1075038264526",
+    "project_id": "tulga-biydaalt",
+    "storage_bucket": "tulga-biydaalt.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075038264526:android:e187e96bab2d4af6dac49f",
+        "android_client_info": {
+          "package_name": "com.example.cloud_todo_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAce8G6o3vq7TvnpXVL5m4uX0Hf6ePX7bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075038264526:android:b481d45f488a2ffbdac49f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_biydalt_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAce8G6o3vq7TvnpXVL5m4uX0Hf6ePX7bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
