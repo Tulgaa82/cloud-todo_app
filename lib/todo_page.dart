@@ -16,10 +16,8 @@ class _TodoPageState extends State<TodoPage> {
   final TodoService _service = TodoService();
   final TextEditingController _controller = TextEditingController();
 
-  // Одоогийн нэвтэрсэн хэрэглэгч
   final User? _user = FirebaseAuth.instance.currentUser;
 
-  // Plan нэмэх dialog
   void _showAddPlanDialog() {
     _controller.clear();
     showDialog(
@@ -49,7 +47,6 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
-  // Plan нэмэх
   void _addPlan(BuildContext ctx) {
     final title = _controller.text.trim();
     if (title.isNotEmpty) {
@@ -59,7 +56,6 @@ class _TodoPageState extends State<TodoPage> {
     }
   }
 
-  // Plan засах dialog
   void _showEditPlanDialog(String planId, String currentTitle) {
     _controller.text = currentTitle;
     showDialog(
@@ -88,7 +84,6 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
-  // Plan засах
   void _editPlan(BuildContext ctx, String planId) {
     final title = _controller.text.trim();
     if (title.isNotEmpty) {

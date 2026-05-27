@@ -13,14 +13,11 @@ class AuthPage extends StatelessWidget {
       final GoogleSignInAccount googleUser =
           await GoogleSignIn.instance.authenticate();
 
-      // 7.x-д authentication synchronous — idToken л авна, accessToken хэрэггүй
       final String? idToken = googleUser.authentication.idToken;
 
       if (idToken == null) {
         throw Exception('idToken авах боломжгүй байна');
       }
-
-      // Firebase credential — accessToken null байж болно
       final OAuthCredential credential = GoogleAuthProvider.credential(
         idToken: idToken,
         accessToken: null,

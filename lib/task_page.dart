@@ -20,7 +20,6 @@ class _TaskPageState extends State<TaskPage> {
   final TodoService _service = TodoService();
   final TextEditingController _controller = TextEditingController();
 
-  // Task нэмэх dialog
   void _showAddTaskDialog() {
     _controller.clear();
     showDialog(
@@ -50,7 +49,6 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  // Task нэмэх
   void _addTask(BuildContext ctx) {
     final title = _controller.text.trim();
     if (title.isNotEmpty) {
@@ -60,7 +58,6 @@ class _TaskPageState extends State<TaskPage> {
     }
   }
 
-  // Task засах dialog
   void _showEditTaskDialog(String taskId, String currentTitle) {
     _controller.text = currentTitle;
     showDialog(
@@ -89,7 +86,6 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  // Task засах
   void _editTask(BuildContext ctx, String taskId) {
     final title = _controller.text.trim();
     if (title.isNotEmpty) {
@@ -99,7 +95,6 @@ class _TaskPageState extends State<TaskPage> {
     }
   }
 
-  // Task устгах баталгаажуулах
   void _confirmDeleteTask(String taskId, String title) {
     showDialog(
       context: context,
@@ -140,12 +135,10 @@ class _TaskPageState extends State<TaskPage> {
       body: StreamBuilder<QuerySnapshot>(
         stream: _service.getTasks(widget.planId),
         builder: (context, snapshot) {
-          // Ачааллаж байгаа үед
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // Алдаа гарсан үед
           if (snapshot.hasError) {
             return Center(
               child: Text('Алдаа: ${snapshot.error}'),
@@ -154,7 +147,6 @@ class _TaskPageState extends State<TaskPage> {
 
           final tasks = snapshot.data?.docs ?? [];
 
-          // Task байхгүй үед
           if (tasks.isEmpty) {
             return const Center(
               child: Column(
@@ -172,13 +164,11 @@ class _TaskPageState extends State<TaskPage> {
             );
           }
 
-          // Дууссан / дуусаагүй task тоо
           final doneCount =
               tasks.where((t) => (t.data() as Map)['isDone'] == true).length;
 
           return Column(
             children: [
-              // Дэвшлийн мэдээлэл
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -201,7 +191,6 @@ class _TaskPageState extends State<TaskPage> {
                 ),
               ),
 
-              // Task жагсаалт
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(12),
@@ -228,7 +217,6 @@ class _TaskPageState extends State<TaskPage> {
                           horizontal: 12,
                           vertical: 4,
                         ),
-                        // Checkbox → toggle isDone
                         leading: Checkbox(
                           value: isDone,
                           activeColor: Colors.green,
@@ -267,7 +255,6 @@ class _TaskPageState extends State<TaskPage> {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            // Засах товч
                             IconButton(
                               icon: const Icon(Icons.edit_outlined,
                                   color: Colors.blue, size: 20),
@@ -285,7 +272,6 @@ class _TaskPageState extends State<TaskPage> {
                             ),
                           ],
                         ),
-                        // Toggle on tap
                         onTap: () {
                           _service.toggleTask(widget.planId, task.id, isDone);
                         },
@@ -298,7 +284,7 @@ class _TaskPageState extends State<TaskPage> {
           );
         },
       ),
-      // Task нэмэх FAB
+
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddTaskDialog,
         tooltip: 'Task нэмэх',

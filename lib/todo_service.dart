@@ -4,14 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 class TodoService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Одоогийн нэвтэрсэн хэрэглэгчийн uid
   String get userId => FirebaseAuth.instance.currentUser!.uid;
 
-  // ─────────────────────────────────────────
-  // PLAN CRUD
-  // ─────────────────────────────────────────
-
-  /// Plan нэмэх
   Future<void> addPlan(String title) async {
     await _firestore
         .collection("users")
@@ -23,7 +17,6 @@ class TodoService {
     });
   }
 
-  /// Plan stream (realtime)
   Stream<QuerySnapshot> getPlans() {
     return _firestore
         .collection("users")
@@ -33,7 +26,6 @@ class TodoService {
         .snapshots();
   }
 
-  /// Plan засах
   Future<void> updatePlan(String planId, String newTitle) async {
     await _firestore
         .collection("users")
@@ -43,9 +35,7 @@ class TodoService {
         .update({"title": newTitle});
   }
 
-  /// Plan устгах (доторх task-уудтай хамт)
   Future<void> deletePlan(String planId) async {
-    // Эхлээд task-уудыг устгана
     final tasks = await _firestore
         .collection("users")
         .doc(userId)
@@ -59,7 +49,6 @@ class TodoService {
       batch.delete(doc.reference);
     }
 
-    // Plan document-г устгана
     batch.delete(
       _firestore
           .collection("users")
@@ -71,11 +60,6 @@ class TodoService {
     await batch.commit();
   }
 
-  // ─────────────────────────────────────────
-  // TASK CRUD
-  // ─────────────────────────────────────────
-
-  /// Task нэмэх
   Future<void> addTask(String planId, String title) async {
     await _firestore
         .collection("users")
@@ -90,7 +74,6 @@ class TodoService {
     });
   }
 
-  /// Task stream (realtime)
   Stream<QuerySnapshot> getTasks(String planId) {
     return _firestore
         .collection("users")
@@ -102,7 +85,6 @@ class TodoService {
         .snapshots();
   }
 
-  /// Task toggle (isDone өөрчлөх)
   Future<void> toggleTask(String planId, String taskId, bool currentValue) async {
     await _firestore
         .collection("users")
@@ -114,7 +96,6 @@ class TodoService {
         .update({"isDone": !currentValue});
   }
 
-  /// Task засах
   Future<void> updateTask(String planId, String taskId, String newTitle) async {
     await _firestore
         .collection("users")
